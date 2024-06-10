@@ -11,13 +11,15 @@ namespace MiniBlog.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BlogController : ControllerBase
+    public class BlogsController : ControllerBase
     {
         private readonly BloggingContext _context;
+        private readonly ILogger<BlogsController> _logger;
 
-        public BlogController(BloggingContext context)
+        public BlogsController(BloggingContext context, ILogger<BlogsController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: api/Blogs

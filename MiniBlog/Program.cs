@@ -6,6 +6,7 @@ using Service;
 using Service.Model;
 using Quartz;
 using RoosterLotteryWebAPI.Batch;
+using RoosterLotteryWebAPI.Exception;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -80,5 +81,28 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+//
+app.UseMiddleware<ExceptionMiddleware>();
+app.UseRouting();
+using (var scope = app.Services.CreateScope())
+{
+    var schedulerFactory = scope.ServiceProvider.GetRequiredService<ISchedulerFactory>();
+    var scheduler = schedulerFactory.GetScheduler().Result;
+    scheduler.Start().Wait();
+}
+
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
+app.UseSwagger();
+app.UseSwaggerUI();
+app.MapControllers();
+
+//
+
+
 
 app.Run();
