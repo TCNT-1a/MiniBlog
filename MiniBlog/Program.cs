@@ -1,3 +1,6 @@
+
+using Service;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,6 +14,8 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error");
 }
 app.UseStaticFiles();
+
+DatabaseManager db = new DatabaseManager();
 
 app.UseRouting();
 
