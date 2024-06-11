@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 
 namespace Service.Model
@@ -15,18 +16,24 @@ namespace Service.Model
         }
         public DbSet<Blog> Blogs { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-        {
-            options.UseSqlite("Data Source=../Service/blogging.db");
-        }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //protected override void OnConfiguring(DbContextOptionsBuilder options)
         //{
-        //    if (!optionsBuilder.IsConfigured)
-        //    {
-        //        optionsBuilder.UseSqlite("name=DbConnection");
-        //    }
+        //    options.UseSqlite("Data Source=../Service/blogging.db");
         //}
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlite("name=DbConnection");
+            }
+            else
+            {
+                //run when migrate
+                //optionsBuilder.UseSqlite("Data Source=blogging.db");
+            }
+        }
 
     }
 
