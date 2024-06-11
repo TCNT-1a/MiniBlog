@@ -24,12 +24,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="db\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="Model\Blog.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="blogging.db">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

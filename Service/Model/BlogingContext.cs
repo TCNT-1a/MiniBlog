@@ -16,7 +16,10 @@ namespace Service.Model
         public DbSet<Blog> Blogs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite("Data Source=db/blogging.db");
+        {
+            options.UseSqlite("Data Source=../Service/blogging.db");
+        }
+
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
         //    if (!optionsBuilder.IsConfigured)
